@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
 	public GameObject foodParticle;
 
-	private const string FOOD_TAG = "Finish";
+	private const string FOOD_TAG = "food";
 
     void Start() {
 		rb2d = GetComponent<Rigidbody2D>();

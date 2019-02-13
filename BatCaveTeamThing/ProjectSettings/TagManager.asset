@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - food
+  - horizontal_wall
+  - vertical_wall
   layers:
   - Default
   - TransparentFX

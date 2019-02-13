@@ -9,19 +9,26 @@ public class FoodController : MonoBehaviour
 	private float flashFrequency = 5;
 
 	private Vector2 velocity;
-	private float velocity_rangeX = 0.75f;
-	private float velocity_rangeY = 0.75f;
+	private float default_velocityX;
+	private float default_velocityY;
+	private float food_speed = 0.75f;
 
 	private float fadeTime;
 	private Color defaultColour;
+
+	const string vertical = "vertical_wall";
+	const string horizontal = "horizontal_wall";
 
     void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
 		line = GetComponent<LineRenderer>();
 
-		rb2d.velocity = GetNewVelocity();
-		line.enabled = false;
+		default_velocityX = Random.Range(-1f, 1f);
+		default_velocityY = Random.Range(-1f, 1f);
+		Vector2 startingVelocity = new Vector2(default_velocityX, default_velocityY);
+		rb2d.velocity = startingVelocity.normalized * food_speed;
 
+		line.enabled = false;
 		fadeTime = flashFrequency / 2;
 		defaultColour = new Color(1, 1, 1, 1);
     }
@@ -47,11 +54,13 @@ public class FoodController : MonoBehaviour
     }
 
 	private void OnCollisionEnter2D(Collision2D collision) {
-		rb2d.velocity = GetNewVelocity();
-	}
-
-	Vector2 GetNewVelocity() {
-		return new Vector2(Random.Range(-velocity_rangeX, velocity_rangeX), Random.Range(-velocity_rangeY, velocity_rangeY));
+		if (collision.gameObject.CompareTag(horizontal)) {
+			default_velocityY *= -1;
+			rb2d.velocity = new Vector2(default_velocityX, default_velocityY);
+		} else if (collision.gameObject.CompareTag(vertical)) {
+			default_velocityX *= -1;
+			rb2d.velocity = new Vector2(default_velocityX, default_velocityY);
+		}
 	}
 
 	void SetLinePosition() {

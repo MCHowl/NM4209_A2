@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 	private float horizontal, vertical;
 
 	public Transform sprite_mask;
+	public GameObject echo_sprite;
 
 	public float speed;
 	private float flashFrequency = 5;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
 		rb2d = GetComponent<Rigidbody2D>();
 		score = 0;
 		health = startingHealth;
+
+		echo_sprite.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,10 +35,10 @@ public class PlayerController : MonoBehaviour
 			health--;
 			canReduceHealth = false;
 			print("Health: " + health);
+			StartCoroutine(displayEchoSprite());
 		}
 
-		if (Time.time % flashFrequency > flashFrequency / 2)
-		{
+		if (Time.time % flashFrequency > flashFrequency / 2) {
 			canReduceHealth = true;
 		}
 
@@ -59,5 +62,11 @@ public class PlayerController : MonoBehaviour
 		vertical = Input.GetAxis("Vertical");
 
 		rb2d.velocity = new Vector2(horizontal, vertical) * speed;
+	}
+
+	IEnumerator displayEchoSprite() {
+		echo_sprite.SetActive(true);
+		yield return new WaitForSeconds(0.25f);
+		echo_sprite.SetActive(false);
 	}
 }

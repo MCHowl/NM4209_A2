@@ -12,12 +12,18 @@ public class FoodController : MonoBehaviour
 	private float velocity_rangeX = 0.75f;
 	private float velocity_rangeY = 0.75f;
 
+	private float fadeTime;
+	private Color defaultColour;
+
     void Start() {
 		rb2d = GetComponent<Rigidbody2D>();
 		line = GetComponent<LineRenderer>();
 
 		rb2d.velocity = GetNewVelocity();
 		line.enabled = false;
+
+		fadeTime = flashFrequency / 2;
+		defaultColour = new Color(1, 1, 1, 1);
     }
 
     void Update() {
@@ -26,10 +32,17 @@ public class FoodController : MonoBehaviour
         if (Time.time % flashFrequency < flashFrequency / 2 && !line.enabled) {
 			SetLinePosition();
 			line.enabled = true;
+
+			line.startColor = defaultColour;
+			line.endColor = defaultColour;
 		}
 
 		if (Time.time % flashFrequency > flashFrequency / 2) {
 			line.enabled = false;
+		}
+
+		if (line.enabled && line.startColor.a > 0) {
+			decreaseAlpha();
 		}
     }
 
@@ -44,5 +57,14 @@ public class FoodController : MonoBehaviour
 	void SetLinePosition() {
 		line.SetPosition(0, transform.position + transform.up * 0.1f);
 		line.SetPosition(1, transform.position - transform.up * 0.1f);
+	}
+
+	void decreaseAlpha() {
+		float newAlpha = line.startColor.a;
+		newAlpha = Mathf.Max(0, newAlpha - Time.deltaTime / fadeTime);
+		Color newColor = new Color(1, 1, 1, newAlpha);
+
+		line.startColor = newColor;
+		line.endColor = newColor;
 	}
 }

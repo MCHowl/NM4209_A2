@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody2D rb2d;
 	private float horizontal, vertical;
 
+	public Transform sprite_mask;
+
 	public float speed;
 	private float flashFrequency = 5;
 
@@ -35,6 +37,12 @@ public class PlayerController : MonoBehaviour
 		if (Time.time % flashFrequency > flashFrequency / 2)
 		{
 			canReduceHealth = true;
+		}
+
+		if (health <= startingHealth) {
+			sprite_mask.localPosition = new Vector3(0, ((float)health/(float)startingHealth) - 1, 0);
+		} else {
+			sprite_mask.localPosition = Vector3.zero;
 		}
 	}
 

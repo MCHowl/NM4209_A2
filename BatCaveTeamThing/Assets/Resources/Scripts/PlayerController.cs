@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 	public int score { get; set;}
 	public int health { get; set; }
 
+	public GameObject foodParticle;
+
 	private const string FOOD_TAG = "Finish";
 
     void Start() {
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
 			Destroy(collision.gameObject);
 			score++;
 			health++;
+
+			Instantiate(foodParticle, transform.position, Quaternion.identity);
 		}
 	}
 

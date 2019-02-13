@@ -373,3 +373,5 @@ MonoBehaviour:
   sprite_mask: {fileID: 7750024167383913005}
   echo_sprite: {fileID: 783729383242521923}
   speed: 2
+  foodParticle: {fileID: 6222425506931849421, guid: 3cb991d15a0c7f74e8f03ef3a1857963,
+    type: 3}

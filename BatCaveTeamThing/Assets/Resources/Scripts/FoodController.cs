@@ -11,7 +11,7 @@ public class FoodController : MonoBehaviour
 	private Vector2 velocity;
 	private float default_velocityX;
 	private float default_velocityY;
-	private float food_speed = 0.75f;
+	private float food_speed = 0.5f;
 
 	private float fadeTime;
 	private Color defaultColour;
@@ -30,7 +30,11 @@ public class FoodController : MonoBehaviour
 
 		line.enabled = false;
 		fadeTime = flashFrequency / 2;
-		defaultColour = new Color(1, 1, 1, 1);
+
+		float r = Random.Range(0.5f, 1);
+		float g = Random.Range(0.5f, 1);
+		float b = Random.Range(0.5f, 1);
+		defaultColour = new Color(r, g, b, 1);
     }
 
     void Update() {
@@ -71,7 +75,7 @@ public class FoodController : MonoBehaviour
 	void decreaseAlpha() {
 		float newAlpha = line.startColor.a;
 		newAlpha = Mathf.Max(0, newAlpha - Time.deltaTime / fadeTime);
-		Color newColor = new Color(1, 1, 1, newAlpha);
+		Color newColor = new Color(defaultColour.r, defaultColour.g, defaultColour.b, newAlpha);
 
 		line.startColor = newColor;
 		line.endColor = newColor;

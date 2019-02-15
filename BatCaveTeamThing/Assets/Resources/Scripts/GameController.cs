@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 	public Canvas startCanvas;
 	public Canvas mainCanvas;
 	public Canvas gameOverCanvas;
+	public GameObject instructionImage;
 	public TMPro.TextMeshProUGUI scoreText;
 
 	public GameObject playerPrefab;
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
 
 		mainCanvas.enabled = true;
 		startCanvas.enabled = false;
+		instructionImage.SetActive(false);
 
 		isGame = true;
 	}

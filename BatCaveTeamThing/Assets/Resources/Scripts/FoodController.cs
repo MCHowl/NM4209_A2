@@ -11,7 +11,7 @@ public class FoodController : MonoBehaviour
 	private Vector2 velocity;
 	private float default_velocityX;
 	private float default_velocityY;
-	private float food_speed = 0.5f;
+	private float food_speed = 0.75f;
 
 	private float fadeTime;
 	private Color defaultColour;
